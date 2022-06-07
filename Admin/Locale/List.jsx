@@ -1,4 +1,4 @@
-import { List, Text, ItemAction, BooleanProperty, app, post } from '@List';
+import { List, Text, EntityAction, BooleanProperty, app, post } from '@List';
 
 const headers = <>
     <th>Key</th>
