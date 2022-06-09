@@ -1,4 +1,4 @@
-import { List, Text as FilterText, Select as FilterSelect, EntityAction, ListAction, app } from '@List'
+import { List, Text as FilterText, EntityAction, ListAction, app } from '@List'
 import { Form, Text, Lookup } from '@Form';
 
 const inputs = <>
