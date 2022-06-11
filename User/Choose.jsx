@@ -37,7 +37,7 @@ const Locales = () => {
                         let now = new Date()
                         now.setMonth(now.getMonth() + 12)
                         let host = document.location.host.split('.').reverse().splice(0, 2).reverse().join('.')
-                        localStorage.setEntity('locale', locale.key)
+                        localStorage.setItem('locale', locale.key)
                         document.location.reload()
                     }}
                 >
