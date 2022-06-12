@@ -1,0 +1,17 @@
+[
+    {
+        "locale": "fa",
+        "translations": {
+            "Choose Locale": "انتخاب زبان",
+            "Globalization": "جهانی سازی",
+            "Locales": "زبان ها",
+            "Translations": "ترجمه ها",
+            "Local Key": "کلید محلی",
+            "Is RTL": "راست چین است؟",
+            "Is Active": "فعال است؟",
+            "Country": "کشور",
+            "Insert Translations": "درج ترجمه ها",
+            "Translations are inserted": "ترجمه ها درج شدند"
+        }
+    }
+]
