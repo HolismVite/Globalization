@@ -22,6 +22,7 @@ const listActions = (itemIds) => {
             click={(params) => insertTranslations(params)}
             minCardinality={1}
             superAdmin
+            devOnly
         />
     </>
 }
