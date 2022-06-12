@@ -1,4 +1,30 @@
-import { List, Text, EntityAction, BooleanProperty, app, post } from '@List';
+import TranslateIcon from '@mui/icons-material/Translate';
+import { List, ListAction, Text, EntityAction, BooleanProperty, app, post } from '@List';
+
+const listActions = (itemIds) => {
+
+    const insertTranslations = ({ setProgress }) => {
+        setProgress(true)
+        post('/locale/insertTranslations', itemIds)
+            .then(data => {
+                setProgress(false)
+                app.success('Translations are inserted')
+            }, error => {
+                setProgress(false)
+                app.error(error)
+            })
+    }
+
+    return <>
+        <ListAction
+            title="Insert Translations"
+            icon={TranslateIcon}
+            click={(params) => insertTranslations(params)}
+            minCardinality={1}
+            superAdmin
+        />
+    </>
+}
 
 const headers = <>
     <th>Key</th>
@@ -34,6 +60,7 @@ const Locales = () => {
     return <List
         title="Locales"
         entityType='locale'
+        listActions={listActions}
         headers={headers}
         row={row}
     />
