@@ -11,7 +11,14 @@
             "Is Active": "فعال است؟",
             "Country": "کشور",
             "Insert Translations": "درج ترجمه ها",
-            "Translations are inserted": "ترجمه ها درج شدند"
+            "Translations are inserted": "ترجمه ها درج شدند",
+            "Text": "متن",
+            "Locale": "محل",
+            "Text Key": "کلید متن",
+            "Translation": "ترجمه",
+            "Please provide text key": "لطفا کلید را مشخص کنید",
+            "Please select the locale": "لطفا محل را انتخاب کنید",
+            "Please translate your text": "لطفا متن را ترجمه کنید"
         }
     }
 ]
