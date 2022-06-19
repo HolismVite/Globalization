@@ -1,5 +1,5 @@
 import TranslateIcon from '@mui/icons-material/Translate';
-import { List, ListAction, Text, EntityAction, BooleanProperty, app, post } from '@List';
+import { List, ListAction, BooleanProperty, app, post, get } from '@List';
 
 const listActions = (itemIds) => {
 
@@ -7,8 +7,16 @@ const listActions = (itemIds) => {
         setProgress(true)
         post('/locale/insertTranslations', itemIds)
             .then(data => {
-                setProgress(false)
-                success('Translations are inserted')
+                get('/locale/data')
+                    .then(data => {
+                        app.setTranslations(data.translations);
+                        app.setLocale(data.locale);
+                        setProgress(false)
+                        success('Translations are inserted')
+                    }, e => {
+                        setProgress(false)
+                        error(e);
+                    });
             }, e => {
                 setProgress(false)
                 error(e)
