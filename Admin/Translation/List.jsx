@@ -1,5 +1,5 @@
 import { List, Text as FilterText, EntityAction, ListAction, app } from '@List'
-import { Form, Text, Lookup } from '@Form';
+import { DialogForm, Text, Lookup } from '@Form';
 
 const inputs = <>
     <Text
@@ -23,7 +23,7 @@ const inputs = <>
 </>
 
 const CreateTranslation = () => {
-    return <Form
+    return <DialogForm
         entityType='translation'
         inputs={inputs}
     />
