@@ -1,4 +1,4 @@
-import { HeaderAction, get, app } from '@Panel'
+import { HeaderAction, get, useMessage } from '@Panel'
 import { useState, useEffect } from 'react'
 import LanguageIcon from '@mui/icons-material/Language'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -7,6 +7,7 @@ const Locales = () => {
 
     const [locales, setLocales] = useState([])
     const [progress, setProgress] = useState(false)
+    const { error } = useMessage()
 
     useEffect(() => {
         setProgress(true)
@@ -14,9 +15,9 @@ const Locales = () => {
             .then(data => {
                 setProgress(false)
                 setLocales(data)
-            }, error => {
+            }, e => {
                 setProgress(false)
-                app.error(error)
+                error(e)
             })
     }, [])
 

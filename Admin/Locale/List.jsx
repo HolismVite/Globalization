@@ -3,15 +3,15 @@ import { List, ListAction, Text, EntityAction, BooleanProperty, app, post } from
 
 const listActions = (itemIds) => {
 
-    const insertTranslations = ({ setProgress }) => {
+    const insertTranslations = ({ setProgress, success, error }) => {
         setProgress(true)
         post('/locale/insertTranslations', itemIds)
             .then(data => {
                 setProgress(false)
-                app.success('Translations are inserted')
-            }, error => {
+                success('Translations are inserted')
+            }, e => {
                 setProgress(false)
-                app.error(error)
+                error(e)
             })
     }
 
