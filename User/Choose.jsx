@@ -21,7 +21,7 @@ const Locales = () => {
             })
     }, [])
 
-    return <div className="rounded-md border w-56 flex flex-col justify-center items-center bg-white py-4">
+    return <div className="rounded-md border w-56 flex flex-col justify-center items-center bg-white py-4 dark:bg-zinc-700 ">
 
         {
             /* todo: in dev mode, create a quick icon besides each locale to insert its translations. create a useGlobalization hook to reuse functionality */
