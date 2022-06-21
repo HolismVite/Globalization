@@ -1,13 +1,17 @@
-import { HeaderAction, get, useMessage } from '@Panel'
 import { useState, useEffect } from 'react'
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
 import LanguageIcon from '@mui/icons-material/Language'
 import CircularProgress from '@mui/material/CircularProgress'
+import CachedIcon from '@mui/icons-material/Cached';
+import { HeaderAction, app, get, post, useMessage } from '@Panel'
 
-const Locales = () => {
+const Locales = ({ hide }) => {
 
     const [locales, setLocales] = useState([])
-    const [progress, setProgress] = useState(false)
-    const { error } = useMessage()
+    const [progress, setProgress] = useState(true)
+    const [localeProgress, setLocaleProgress] = useState(1)
+    const { success, error } = useMessage()
 
     useEffect(() => {
         setProgress(true)
@@ -21,6 +25,31 @@ const Locales = () => {
             })
     }, [])
 
+    const apply = (event, locale) => {
+        event.stopPropagation()
+        event.preventDefault()
+        event.nativeEvent.stopPropagation()
+        event.nativeEvent.preventDefault()
+        setLocaleProgress(locale.id)
+        post('/locale/insertTranslations', [locale.id])
+            .then(data => {
+                get('/locale/data')
+                    .then(data => {
+                        app.setTranslations(data.translations);
+                        app.setLocale(data.locale);
+                        setLocaleProgress(null)
+                        success('Translations are inserted')
+                        hide()
+                    }, e => {
+                        setLocaleProgress(null)
+                        error(e);
+                    });
+            }, e => {
+                setLocaleProgress(null)
+                error(e)
+            })
+    }
+
     return <div className="rounded-md border w-56 flex flex-col justify-center items-center bg-white py-4 dark:bg-zinc-700 ">
 
         {
@@ -32,17 +61,37 @@ const Locales = () => {
                 locales.map((locale, index) => <div
                     key={index}
                     className={
-                        "w-full flex py-2 justify-center items-center hover:bg-green-200 cursor-pointer " +
+                        "w-full flex py-2 px-4 justify-center items-center hover:bg-green-200 cursor-pointer " +
                         ((index !== locales.length - 1) ? "mb-2" : "")
                     }
                     onClick={() => {
-                        let now = new Date()
-                        now.setMonth(now.getMonth() + 12)
-                        let host = document.location.host.split('.').reverse().splice(0, 2).reverse().join('.')
                         localStorage.setItem('locale', locale.key)
                         document.location.reload()
                     }}
                 >
+                    {
+                        app.isDev() && <span
+                            className="flex-1 inline-block flex items-center"
+                        >
+                            {
+                                localeProgress === locale.id
+                                    ?
+                                    <CircularProgress
+                                        className="m-2"
+                                        size={24}
+                                    />
+                                    :
+                                    <Tooltip
+                                        onClick={(e) => apply(e, locale)}
+                                        title='Apply localization'
+                                    >
+                                        <IconButton>
+                                            <CachedIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                            }
+                        </span>
+                    }
                     {locale.localKey}
                 </div>)
         }

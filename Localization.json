@@ -18,7 +18,8 @@
             "Translation": "ترجمه",
             "Please provide text key": "لطفا کلید را مشخص کنید",
             "Please select the locale": "لطفا محل را انتخاب کنید",
-            "Please translate your text": "لطفا متن را ترجمه کنید"
+            "Please translate your text": "لطفا متن را ترجمه کنید",
+            "Apply localization": "اعمال زبان"
         }
     }
 ]
