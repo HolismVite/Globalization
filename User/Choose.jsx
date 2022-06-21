@@ -10,7 +10,7 @@ const Locales = ({ hide }) => {
 
     const [locales, setLocales] = useState([])
     const [progress, setProgress] = useState(true)
-    const [localeProgress, setLocaleProgress] = useState(1)
+    const [localeProgress, setLocaleProgress] = useState(null)
     const { success, error } = useMessage()
 
     useEffect(() => {
