@@ -31,7 +31,7 @@ const Locales = ({ hide }) => {
         event.preventDefault()
         event.nativeEvent.stopPropagation()
         event.nativeEvent.preventDefault()
-        setLocaleProgress(locale.id)
+        setLocaleProgress(`applying-${locale.id}`)
         post('/locale/insertTranslations', [locale.id])
             .then(data => {
                 get('/locale/data')
@@ -56,7 +56,7 @@ const Locales = ({ hide }) => {
         event.preventDefault()
         event.nativeEvent.stopPropagation()
         event.nativeEvent.preventDefault()
-        setLocaleProgress(locale.id)
+        setLocaleProgress(`removing-${locale.id}`)
         post('/locale/removeTranslations', [locale.id])
             .then(data => {
                 get('/locale/data')
@@ -101,7 +101,7 @@ const Locales = ({ hide }) => {
                                 className="inline-block flex items-center"
                             >
                                 {
-                                    localeProgress === locale.id
+                                    localeProgress === `applying-${locale.id}`
                                         ?
                                         <CircularProgress
                                             className="m-2"
@@ -124,7 +124,7 @@ const Locales = ({ hide }) => {
                                 className="inline-block flex items-center"
                             >
                                 {
-                                    localeProgress === locale.id
+                                    localeProgress === `removing-${locale.id}`
                                         ?
                                         <CircularProgress
                                             className="m-2"
