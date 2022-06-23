@@ -3,6 +3,7 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import LanguageIcon from '@mui/icons-material/Language'
 import CircularProgress from '@mui/material/CircularProgress'
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import CachedIcon from '@mui/icons-material/Cached';
 import { HeaderAction, app, get, post, useMessage } from '@Panel'
 
@@ -50,6 +51,31 @@ const Locales = ({ hide }) => {
             })
     }
 
+    const remove = (event, locale) => {
+        event.stopPropagation()
+        event.preventDefault()
+        event.nativeEvent.stopPropagation()
+        event.nativeEvent.preventDefault()
+        setLocaleProgress(locale.id)
+        post('/locale/removeTranslations', [locale.id])
+            .then(data => {
+                get('/locale/data')
+                    .then(data => {
+                        app.setTranslations(data.translations);
+                        app.setLocale(data.locale);
+                        setLocaleProgress(null)
+                        success('Translations are removed')
+                        hide()
+                    }, e => {
+                        setLocaleProgress(null)
+                        error(e);
+                    });
+            }, e => {
+                setLocaleProgress(null)
+                error(e)
+            })
+    }
+
     return <div className="rounded-md border w-56 flex flex-col justify-center items-center bg-white py-4 dark:bg-zinc-700 ">
 
         {
@@ -69,29 +95,54 @@ const Locales = ({ hide }) => {
                         document.location.reload()
                     }}
                 >
-                    {
-                        app.isDev() && <span
-                            className="flex-1 inline-block flex items-center"
-                        >
-                            {
-                                localeProgress === locale.id
-                                    ?
-                                    <CircularProgress
-                                        className="m-2"
-                                        size={24}
-                                    />
-                                    :
-                                    <Tooltip
-                                        onClick={(e) => apply(e, locale)}
-                                        title='Apply localization'
-                                    >
-                                        <IconButton>
-                                            <CachedIcon />
-                                        </IconButton>
-                                    </Tooltip>
-                            }
-                        </span>
-                    }
+                    <div className="flex-1 flex items-center">
+                        {
+                            app.isDev() && <span
+                                className="inline-block flex items-center"
+                            >
+                                {
+                                    localeProgress === locale.id
+                                        ?
+                                        <CircularProgress
+                                            className="m-2"
+                                            size={24}
+                                        />
+                                        :
+                                        <Tooltip
+                                            onClick={(e) => apply(e, locale)}
+                                            title='Apply localization'
+                                        >
+                                            <IconButton>
+                                                <CachedIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                }
+                            </span>
+                        }
+                        {
+                            app.isDev() && <span
+                                className="inline-block flex items-center"
+                            >
+                                {
+                                    localeProgress === locale.id
+                                        ?
+                                        <CircularProgress
+                                            className="m-2"
+                                            size={24}
+                                        />
+                                        :
+                                        <Tooltip
+                                            onClick={(e) => remove(e, locale)}
+                                            title='Remove localization'
+                                        >
+                                            <IconButton>
+                                                <RemoveCircleOutlineIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                }
+                            </span>
+                        }
+                    </div>
                     {locale.localKey}
                 </div>)
         }
