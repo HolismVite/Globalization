@@ -13,7 +13,7 @@ const inputs = <>
         entityType='locale'
         placeholder='Locale'
         required='Please select the locale'
-        display={(item) => item.localKey}
+        show={(item) => item.localKey}
     />
     <Text
         column='Value'
