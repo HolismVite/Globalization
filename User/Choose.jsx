@@ -95,9 +95,10 @@ const Locales = ({ hide }) => {
                         document.location.reload()
                     }}
                 >
-                    <div className="flex-1 flex items-center">
-                        {
-                            app.isDev() && <span
+                    {
+                        app.isDev() &&
+                        <div className="flex-1 flex items-center">
+                            <span
                                 className="inline-block flex items-center"
                             >
                                 {
@@ -118,9 +119,7 @@ const Locales = ({ hide }) => {
                                         </Tooltip>
                                 }
                             </span>
-                        }
-                        {
-                            app.isDev() && <span
+                            <span
                                 className="inline-block flex items-center"
                             >
                                 {
@@ -141,8 +140,8 @@ const Locales = ({ hide }) => {
                                         </Tooltip>
                                 }
                             </span>
-                        }
-                    </div>
+                        </div>
+                    }
                     {locale.localKey}
                 </div>)
         }
